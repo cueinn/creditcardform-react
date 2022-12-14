@@ -1,0 +1,133 @@
+.cardPreviewWrap {
+  position: relative;
+  height: 240px;
+  color: white;
+  background-color: var(--color-main);
+}
+
+.cardPreview {
+  position: absolute;
+  width: 288px;
+  height: 160px;
+  background-size: cover;
+  border-radius: 8px;
+  box-shadow: 0px 10px 64px -8px #80008061;
+  transition: transform .3s;
+}
+
+.cardPreview.front {
+  bottom: -40px;
+  left: 16px;
+  display: grid;
+  grid-template-areas:
+      "image image"
+      "number number"
+      "name date";
+  padding: 16px;
+  text-transform: uppercase;
+  background-image: url(../../img/bg-card-front.png);
+  background-size: cover;
+  z-index: 10;
+}
+  .cardPreview.front:hover {
+    transform: perspective(20cm) rotateY(15deg) rotateZ(4deg);
+  }
+.cardPreview.front img {
+  height: 32px;
+  margin-bottom: 32px;
+}
+.cardPreview_number {
+  grid-area: number;
+  font-size: 18px;
+  letter-spacing: .1em;
+  margin-bottom: 16px;
+}
+.cardPreview_name,
+.cardPreview_date {
+  line-height: 1;
+  opacity: .6;
+}
+.cardPreview_name {
+  grid-area: name;
+}
+.cardPreview_date {
+  grid-area: date;
+  text-align: right;
+}
+
+.cardPreview.back {
+  top: 32px;
+  right: 16px;
+  background-color: var(--color-neutral-dark);
+  background-image: url(../../img/bg-card-back.png);
+  background-size: cover;
+}
+  .cardPreview.back:hover {
+    transform: perspective(20cm) rotateY(-15deg) rotateZ(-4deg);
+  }
+  .cardPreview_cvc {
+    position: absolute;
+    top: 70px;
+    right: 32px;
+
+    letter-spacing: .1em;
+    opacity: .6;
+  }
+
+@media (min-width: 516px) {
+  .cardPreview.front {
+    left: 50%;
+    margin-left: -240px;
+  }
+  .cardPreview.back {
+    right: 50%;
+    margin-right: -240px;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .cardPreviewWrap {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 30vw;
+    height: auto;
+    background: url(../../img/bg-main-desktop.png);
+    background-size: cover;
+  }
+    .cardPreview {
+      width: 30vw;
+      max-width: 440px;
+      height: 17vw;
+      max-height: 240px;
+    }
+      .cardPreview.front {
+        bottom: 50%;
+        left: auto;
+        right: -8vw;
+        padding: 2vw;
+      }
+        .cardPreview.front img {
+          height: clamp(32px, 3.5vw, 48px);
+          margin-bottom: clamp(32px, 3vw, 40px);
+        }
+        .cardPreview_number {
+          font-size: clamp(18px, 2vw, 26px);
+          margin-bottom: clamp(1vw, 16px);
+        }
+        .cardPreview_name, .cardPreview_date, .cardPreview_cvc {
+          font-size: clamp(12px, 1.1vw, 16px);
+        }
+      .cardPreview.back {
+        top: 50%;
+        right: 0;
+        margin-right: -13vw;
+        margin-top: 24px;
+      }
+        .cardPreview_cvc {
+          top: 44%;
+          right: 12%;
+        }
+}
