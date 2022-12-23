@@ -1,96 +1,106 @@
-import './App.css';
-import { Fragment } from 'react';
-import CardPreviewWrap from './components/CardPreviewWrap'
-import Content from './components/Content'
-import Attribution from './components/Attribution';
-import { useState } from 'react';
+import "./App.css";
+import { Fragment } from "react";
+import CardPreviewWrap from "./components/CardPreviewWrap";
+import Content from "./components/Content";
+import Attribution from "./components/Attribution";
+import { useState } from "react";
+import { submit } from "./formHandler";
 
 function App() {
-  const [ccName, setCcName] = useState('')
-  const [ccNumber, setCcNumber] = useState('')
-  const [dateMonth, setDateMonth] = useState('')
-  const [dateYear, setDateYear] = useState('')
-  const [cvc, setCvc] = useState('')
-  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [ccName, setCcName] = useState("");
+  const [ccNumber, setCcNumber] = useState("");
+  const [ccMonth, setCcMonth] = useState("");
+  const [ccYear, setCcYear] = useState("");
+  const [ccCvc, setCcCvc] = useState("");
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   function showError(input) {
-    input.parentNode.parentNode.querySelector('.feedbackError').classList.add('active')
-    input.classList.add('error')
+    input.parentNode.parentNode
+      .querySelector(".feedbackError")
+      .classList.add("active");
+    input.classList.add("error");
   }
 
   function clearError(input) {
-    input.parentNode.parentNode.querySelector('.feedbackError').classList.remove('active')
-    input.classList.remove('error')
+    input.parentNode.parentNode
+      .querySelector(".feedbackError")
+      .classList.remove("active");
+    input.classList.remove("error");
   }
 
   function isEmpty(input) {
-    if (input.value.length === 0) return true
-    else return false
+    if (input.value.length === 0) return true;
+    else return false;
   }
 
   function handleError(input) {
     if (isEmpty(input) || !input.validity.valid) {
-      showError(input)
+      showError(input);
     } else {
-      clearError(input)
+      clearError(input);
     }
   }
 
   function handleChangeNameValue(e) {
-    setCcName(e.target.value)
+    setCcName(e.target.value);
 
-    handleError(e.target)
+    handleError(e.target);
   }
   function handleChangeNumberValue(e) {
-    setCcNumber(e.target.value)
-    handleError(e.target)
+    setCcNumber(e.target.value);
+    handleError(e.target);
 
-    if (ccNumber.length === 4 || ccNumber.length === 9 || ccNumber.length === 14) {
-      setCcNumber(ccNumber + " ")
+    if (
+      ccNumber.length === 4 ||
+      ccNumber.length === 9 ||
+      ccNumber.length === 14
+    ) {
+      setCcNumber(ccNumber + " ");
     }
   }
   function handleChangeMonthValue(e) {
-    setDateMonth(e.target.value)
-    handleError(e.target)
+    setCcMonth(e.target.value);
+    handleError(e.target);
   }
   function handleChangeYearValue(e) {
-    setDateYear(e.target.value)
-    handleError(e.target)
+    setCcYear(e.target.value);
+    handleError(e.target);
   }
   function handleChangeCvcValue(e) {
-    setCvc(e.target.value)
-    handleError(e.target)
+    setCcCvc(e.target.value);
+    handleError(e.target);
   }
 
   function handleSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
 
-    const inputs = document.querySelectorAll("input")
-    let invalidInputs = false
+    const inputs = document.querySelectorAll("input");
+    let invalidInputs = false;
 
-    inputs.forEach(input => {
+    inputs.forEach((input) => {
       if (!input.validity.valid) {
-        showError(input)
-        invalidInputs = true
+        showError(input);
+        invalidInputs = true;
       }
-    })
+    });
 
     if (!invalidInputs) {
-      setFormSubmitted(true)
+      setFormSubmitted(true);
     }
 
-    console.log(`
-    Cardholder name: ${ccName}
-    Card number: ${ccNumber}
-    Exp. Date: ${dateMonth}/${dateYear}
-    CVC: ${cvc}
-    `)
+    submit({
+      ccName,
+      ccNumber,
+      ccMonth,
+      ccYear,
+      ccCvc,
+    });
   }
 
   function handleClick(event) {
-    event.preventDefault()
+    event.preventDefault();
 
-    setFormSubmitted(false)
+    setFormSubmitted(false);
   }
 
   return (
@@ -98,9 +108,9 @@ function App() {
       <CardPreviewWrap
         num={ccNumber}
         cardholderName={ccName}
-        dateMonth={dateMonth}
-        dateYear={dateYear}
-        cvc={cvc}
+        dateMonth={ccMonth}
+        dateYear={ccYear}
+        cvc={ccCvc}
       />
 
       <Content
@@ -108,11 +118,11 @@ function App() {
         onChangeNameValue={handleChangeNameValue}
         numberValue={ccNumber}
         onChangeNumberValue={handleChangeNumberValue}
-        monthValue={dateMonth}
+        monthValue={ccMonth}
         onChangeMonthValue={handleChangeMonthValue}
-        yearValue={dateYear}
+        yearValue={ccYear}
         onChangeYearValue={handleChangeYearValue}
-        cvcValue={cvc}
+        cvcValue={ccCvc}
         onChangeCvcValue={handleChangeCvcValue}
         handleSubmit={handleSubmit}
         formSubmitted={formSubmitted}
