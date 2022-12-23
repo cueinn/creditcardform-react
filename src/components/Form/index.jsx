@@ -1,6 +1,11 @@
-import "./styles.css"
+import "./styles.css";
 import TextField from "../TextField";
-import { useState } from "react";
+
+export const FORM_CC_NAME = "Cardholder Name";
+export const FORM_CC_NUMBER = "Card Number";
+export const FORM_CC_DATE = "Exp. Date (MM/YY)";
+export const FORM_CC_CVC = "CVC";
+export const FORM_CC_SUBMIT = "Confirm";
 
 export default function Form({
   nameValue,
@@ -13,17 +18,12 @@ export default function Form({
   onChangeYearValue,
   cvcValue,
   onChangeCvcValue,
-  handleSubmit
+  handleSubmit,
 }) {
-
-
-
-
   return (
     <form onSubmit={handleSubmit} id="form" noValidate autoComplete="off">
-
       <TextField
-        name="Cardholder Name"
+        name={FORM_CC_NAME}
         type="text"
         placeholder="e.g. Jane Appleseed"
         id="inputCardholderName"
@@ -33,7 +33,7 @@ export default function Form({
       />
 
       <TextField
-        name="Card Number"
+        name={FORM_CC_NUMBER}
         type="text"
         placeholder="e.g. 1234 5678 9123 0000"
         id="inputCardNumber"
@@ -44,7 +44,7 @@ export default function Form({
       />
 
       <TextField
-        name="Exp. Date (MM/YY)"
+        name={FORM_CC_DATE}
         type="number"
         doubleField
         placeholder="MM"
@@ -61,7 +61,7 @@ export default function Form({
       />
 
       <TextField
-        name="CVC"
+        name={FORM_CC_CVC}
         type="text"
         placeholder="e.g. 123"
         id="inputCVC"
@@ -72,10 +72,7 @@ export default function Form({
         pattern="\d{3,4}"
       />
 
-      <button id="buttonConfirm">
-        Confirm
-      </button>
-
+      <button id="buttonConfirm">{FORM_CC_SUBMIT}</button>
     </form>
-  )
+  );
 }
